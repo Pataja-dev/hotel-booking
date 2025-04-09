@@ -1,34 +1,30 @@
 "use client";
 
+import { signupUser } from "@/app/(auth)/signup/actions";
+import { addressValidation, emailValidation, nameValidation, passwordValidationSchema, phoneValidation } from "@/lib/constants";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-export function useSignupHook(){
-    const FormSchema = z.object({
-        firstName: z.string().min(2, {
-            message: "This field is required",
-        }),
-        lastName: z.string().min(2, {
-            message: "This field is required",
-        }),
-        address: z.string().min(2, {
-            message: "This field is required",
-        }),
-        phone: z.string().min(2, {
-            message: "This field is required",
-        }),
-        email: z.string().email("Invalid email address"),
-        password: z.string().min(8, {
-            message: "Password must be at least 8 characters long",
-        }),
-        confirmPassword: z.string().min(8, {
-            message: "Password must be at least 8 characters long",
-        }),
-    })
+const signupSchema = z.object({
+    firstName: nameValidation,
+    lastName: nameValidation,
+    address: addressValidation,
+    phone: phoneValidation,
+    email: emailValidation,
+    password: passwordValidationSchema,
+    confirmPassword: passwordValidationSchema,
+})
+export type SignupFormValue = z.infer<typeof signupSchema>;
 
-    const form = useForm<z.infer<typeof FormSchema>>({
-        resolver: zodResolver(FormSchema),
+export function useSignupHook(){
+    const [isPending, startTransition] = useTransition();
+    const [error, setError] = useState<string | null>(null);
+    const [success, setSuccess] = useState<string | null>(null);
+    
+    const form = useForm<SignupFormValue>({
+        resolver: zodResolver(signupSchema),
         defaultValues: {
             firstName: "",
             lastName: "",
@@ -38,11 +34,32 @@ export function useSignupHook(){
             password: "",
             confirmPassword: "",
         },
-    })
+    });
 
-    function onSubmit(data: z.infer<typeof FormSchema>) {
-        console.log("Form Data", data);
-    } 
+    const onSubmit = (data: SignupFormValue) => {
+        const formData = new FormData()
+        formData.append("firstName", data.firstName);
+        formData.append("lastName", data.lastName);
+        formData.append("address", data.address);
+        formData.append("phone", data.phone);
+        formData.append("email", data.email);
+        formData.append("password", data.password);
 
-    return { form, onSubmit}
+        startTransition(async () => {
+            try {
+                const result = await signupUser(formData);
+                if (result.success) {
+                    setSuccess("Signup successful! Please login your account.");
+                    setError(null);
+                } else {
+                    setError(result.error || "Failed to create an account.");
+                }
+              } catch {
+                setError("An error occurred during signup.");
+              }
+        });
+
+    }
+
+    return { form, onSubmit, isPending, error, success };
 }

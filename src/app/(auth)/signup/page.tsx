@@ -8,7 +8,7 @@ import { useSignupHook } from '@/hooks/useSignup';
 import React from 'react'
 
 export default function SignupPage() {
-    const {form,onSubmit} = useSignupHook();
+    const {form, onSubmit, isPending, error, success} = useSignupHook();
     return (
         <>
         <div className='flex justify-center items-center h-screen'>
@@ -93,7 +93,7 @@ export default function SignupPage() {
                                 <FormItem>
                                 <FormLabel className='text-[#A08963] '>Password</FormLabel>
                                 <FormControl>
-                                    <Input className='rounded-[3px] border-[#A08963]' placeholder="Enter password" {...field} />
+                                    <Input type='password' className='rounded-[3px] border-[#A08963]' placeholder="Enter password" {...field} />
                                 </FormControl>
                                 <FormMessage />
                                 </FormItem>
@@ -106,20 +106,26 @@ export default function SignupPage() {
                                 <FormItem>
                                 <FormLabel className='text-[#A08963] '>Confirm Password</FormLabel>
                                 <FormControl>
-                                    <Input className='rounded-[3px] border-[#A08963]' placeholder="Re-type password" {...field} />
+                                    <Input type='password' className='rounded-[3px] border-[#A08963]' placeholder="Re-type password" {...field} />
                                 </FormControl>
                                 <FormMessage />
                                 </FormItem>
                             )}
                         />
-                        <Button className='min-w-full bg-[#A08963] text-[22px]  text-white hover:bg-[#d6ba8f]' type="submit">REGISTER</Button>
+                        <Button className='min-w-full bg-[#A08963] text-[20px]  text-white hover:bg-[#d6ba8f]' type="submit" disabled={isPending}>
+                            {isPending ? "CREATING.." : "REGISTER" }
+                        </Button>
                     </form>
                 </Form>
+                {error && <p className='text-red-500 text-center mt-2'>{error}</p>}
+                {success && <p className='text-green-500 text-center mt-2'>{success}</p>}
             </CardContent>
             <CardFooter className="justify-center">
                 <p className="text-center">
                     Already have an account?
-                    <a href="/login" className="text-[#A08963] underline ml-1">Sign in</a>
+                    <Button variant="link" className="text-[#A08963] underline ml-1" onClick={() => window.location.href = "/login"}>
+                        Sign in
+                    </Button>
                 </p>
             </CardFooter>
         </Card>

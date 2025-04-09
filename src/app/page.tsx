@@ -1,4 +1,4 @@
-
+"use client";
 import Header from "@/components/portal/header";
 import { Button } from "@/components/ui/button";
 
