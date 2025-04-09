@@ -3,7 +3,7 @@
 import { signupUser } from "@/app/(auth)/signup/actions";
 import { addressValidation, emailValidation, nameValidation, passwordValidationSchema, phoneValidation } from "@/lib/constants";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -20,6 +20,8 @@ export type SignupFormValue = z.infer<typeof signupSchema>;
 
 export function useSignupHook(){
     const [isPending, startTransition] = useTransition();
+    const [error, setError] = useState<string | null>(null);
+    const [success, setSuccess] = useState<string | null>(null);
     
     const form = useForm<SignupFormValue>({
         resolver: zodResolver(signupSchema),
@@ -47,16 +49,17 @@ export function useSignupHook(){
             try {
                 const result = await signupUser(formData);
                 if (result.success) {
-                    console.log("Signup successful:", result.data);
+                    setSuccess("Signup successful! Please login your account.");
+                    setError(null);
                 } else {
-                    console.error("Signup error:", result.error);
+                    setError(result.error || "Failed to create an account.");
                 }
               } catch {
-                console.error("An error occurred during signup.");
+                setError("An error occurred during signup.");
               }
         });
 
     }
 
-    return { form, onSubmit, isPending}
+    return { form, onSubmit, isPending, error, success };
 }

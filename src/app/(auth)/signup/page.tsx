@@ -8,7 +8,7 @@ import { useSignupHook } from '@/hooks/useSignup';
 import React from 'react'
 
 export default function SignupPage() {
-    const {form,onSubmit, isPending} = useSignupHook();
+    const {form, onSubmit, isPending, error, success} = useSignupHook();
     return (
         <>
         <div className='flex justify-center items-center h-screen'>
@@ -117,6 +117,8 @@ export default function SignupPage() {
                         </Button>
                     </form>
                 </Form>
+                {error && <p className='text-red-500 text-center mt-2'>{error}</p>}
+                {success && <p className='text-green-500 text-center mt-2'>{success}</p>}
             </CardContent>
             <CardFooter className="justify-center">
                 <p className="text-center">
