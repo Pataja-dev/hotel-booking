@@ -66,7 +66,7 @@ export const Pagination: React.FC<PaginationProps> = ({
             variant={"ghost"}
             className={`border ${
               currentPage === page
-                ? "bg-[#31a27c] text-gray-50 hover:bg-opacity-80 hover:text-white"
+                ? "bg-[#ACABAC] text-gray-50 hover:bg-opacity-80 hover:text-white"
                 : ""
             }`}
           >
