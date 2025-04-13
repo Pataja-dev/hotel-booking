@@ -14,7 +14,6 @@ import {
 import { Pagination } from "@/components/pagination";
 import { Badge } from "@/components/ui/badge";
 import { RoomStatus } from "@/types/room.types";
-import { Button } from "@/components/ui/button";
 import { AddRoom } from "./add-room";
 
 export default function Room() {
@@ -81,7 +80,7 @@ export default function Room() {
                   <TableCell className="font-medium text-end">
                     ₱ {room.price}.00
                   </TableCell>
-                  <TableCell className="font-bold text-center">
+                  <TableCell className="font-bold">
                     <Badge className={statusColor}>{room.status}</Badge>
                     {/* <span className={statusColor}>{room.status}</span> */}
                   </TableCell>

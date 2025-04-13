@@ -1,3 +1,33 @@
+"use server";
+
+import supabaseServer from "@/lib/supabase/server";
+
+export async function createRoom(formData: FormData) {
+  const supabase = await supabaseServer();
+
+  const { data: roomData, error: roomError } = await supabase
+    .from("rooms")
+    .insert({
+      room_number: formData.get("roomNumber"),
+      room_type: formData.get("roomType"),
+      status: "maintenance",
+    });
+
+  console.log("Room Data", roomData);
+  console.log("Room Error", roomError);
+
+  if (!roomError) {
+    return {
+      success: true,
+      data: roomData || "Insertion successful, no data returned",
+    };
+  }
+
+  if (roomError) {
+    return { success: false, error: roomError.message };
+  }
+}
+
 // "use server";
 
 // import supabaseServer from "@/lib/supabase/server";
@@ -38,4 +68,4 @@
 //   });
 
 //   setChurchList(transformedData);
-// };    
+// };

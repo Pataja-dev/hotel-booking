@@ -3,6 +3,7 @@ import { useState, useEffect, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { Header } from "@/components/portal/header";
 import { Sidebar } from "@/components/portal/sidebar";
+import { Toaster } from "@/components/ui/sonner";
 // import { Toaster } from "@/components/ui/sonner";
 
 export default function PortalLayout({ children }: { children: ReactNode }) {
@@ -39,6 +40,7 @@ export default function PortalLayout({ children }: { children: ReactNode }) {
         <Header toggleSidebar={toggleSidebar} />
         <main className="flex-1 overflow-y-auto p-4 md:p-6">{children}</main>
         {/* <Toaster richColors /> */}
+        <Toaster expand={true} richColors position="top-right" theme="light" />
       </div>
     </div>
   );
