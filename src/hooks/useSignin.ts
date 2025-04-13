@@ -2,6 +2,7 @@
 
 import { signinUser } from "@/app/(auth)/signin/actions";
 import { emailValidation, passwordValidationSchema } from "@/lib/constants";
+import { paths } from "@/routes/paths";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
@@ -37,6 +38,7 @@ export function useSigninHook() {
         if (result.success) {
           setSuccess("Signin successful! Please check your email for verification.");
           setError(null);
+          window.location.href = paths.index;
         } else {
           setError(result.error || "Failed to sign in.");
         }
