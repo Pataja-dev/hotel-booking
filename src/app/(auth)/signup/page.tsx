@@ -1,5 +1,6 @@
 "use client";
 
+import { PasswordRules } from '@/components/passwordRules';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardContent, CardDescription  } from '@/components/ui/card'
 import { Form, FormField, FormItem, FormLabel, FormMessage, FormControl } from '@/components/ui/form';
@@ -22,10 +23,10 @@ export default function SignupPage() {
                     height={400}
                     className="w-full h-[400px] object-cover opacity-70"
                 />
-                <div className="h-[120vh] absolute inset-0 bg-gray-700 opacity-80"></div>
+                <div className="h-[130vh] absolute inset-0 bg-gray-700 opacity-80"></div>
             </div>
             <div className="relative z-10 flex flex-col justify-center items-center text-white">
-            <div className="mb-[20px] mt-[100px]">
+            <div className="mb-[20px] mt-[200px]">
                 <h1 className="text-4xl text-white font-bold text-">Welcome to CRDelux <sup>®</sup></h1>
                 <p className="text-lg text-white text-center">Join us and experience the best services.</p>
                 <p className="text-lg text-white text-center">Create your account to get started.</p>
@@ -135,19 +136,13 @@ export default function SignupPage() {
                                             </FormItem>
                                         )}
                                     />
-                                    <div className='items-center justify-center'>
-                                        <ul  className="text-[12px] text-gray-500 list-disc pl-5 space-y-1">
-                                            <li className=''>Password must be at least 8 characters long.</li>
-                                            <li className=''>Password must contain at least one uppercase letter.</li>
-                                            <li className=''>Password must contain at least one lower letter.</li>
-                                            <li className=''>Password must contain at least one number.</li>
-                                            <li className=''>Password must contain at least one special character.</li>
-                                        </ul>
-                                    </div>
+                                </div>
+                                <div className="mt-2">
+                                    <PasswordRules password={form.watch("password")} />
                                 </div>
                                 <div className="flex mt-[30px]">
-                                    <Button className='w-[100px ] text-lg mr-4  text-white rounded rouded-sm' type="submit" disabled={isPending}>
-                                        {isPending ? "Creating.." : "Create" }
+                                    <Button className='w-[100px ] text-lg mr-4  text-white rounded rouded-sm cursor-pointer' type="submit" disabled={isPending}>
+                                        {isPending ? "Creating.." : "Create Account" }
                                     </Button>
                                 </div>
                             </form>
