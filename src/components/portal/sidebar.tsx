@@ -107,7 +107,7 @@ export function Sidebar({
           <div className="flex justify-between items-center mb-6">
             <div className="flex items-center space-x-3">
               <Image
-                src="/church_logo.png"
+                src="/CARDOOXX.png"
                 alt="CRDX Logo"
                 priority
                 width={100}
