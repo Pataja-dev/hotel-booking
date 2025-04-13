@@ -1,13 +1,8 @@
 import { useEffect, useState } from "react";
 import supabaseBrowser from "@/lib/supabase/client";
+import { RoomsProps } from "@/types/room.types";
 
-export interface RoomsProps {
-  room: number;
-  type: string;
-  price: string;
-  status: string;
-  pax: string;
-}
+
 
 export function useRoom() {
     //TO-DO
