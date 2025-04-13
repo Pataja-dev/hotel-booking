@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/table";
 import { Pagination } from "@/components/pagination";
 import { Badge } from "@/components/ui/badge";
+import { RoomStatus } from "@/types/room.types";
 import { Button } from "@/components/ui/button";
 import { AddRoom } from "./add-room";
 
@@ -54,16 +55,16 @@ export default function Room() {
             {currentRows.map((room, index) => {
               let statusColor = "text-gray-500";
 
-              if (room.status === "AVAILABLE") {
+              if (room.status === RoomStatus.AVAILABLE) {
                 statusColor =
                   "bg-green-500 hover:bg-green-700 text-white font-bold";
-              } else if (room.status === "OCCUPIED") {
+              } else if (room.status === RoomStatus.OCCUPIED) {
                 statusColor =
                   "bg-red-500 hover:bg-red-700 text-white font-bold";
-              } else if (room.status === "RESERVED") {
+              } else if (room.status === RoomStatus.RESERVED) {
                 statusColor =
                   "bg-yellow-500 hover:bg-yellow-700 text-white font-bold";
-              } else if (room.status === "MAINTENANCE") {
+              } else if (room.status === RoomStatus.MAINTENANCE) {
                 statusColor =
                   "bg-gray-500 hover:bg-gray-700 text-white font-bold";
               }

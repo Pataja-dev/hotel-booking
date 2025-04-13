@@ -1,11 +1,10 @@
 
-import Welcome from "@/components/welcome";
-
+import Content from "@/components/welcome/contents";
 
 export default function Home() {
   return (
     <>
-      <Welcome/>
+      <Content/>
     </>
   );
 }

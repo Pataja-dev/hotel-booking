@@ -1,16 +1,10 @@
 import { useEffect, useState } from "react";
 import supabaseBrowser from "@/lib/supabase/client";
+import { RoomsProps } from "@/types/room.types";
+
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-
-export interface RoomsProps {
-  room: number;
-  type: string;
-  price: string;
-  status: string;
-  pax: string;
-}
 
 const createRoomSchema = z.object({});
 
