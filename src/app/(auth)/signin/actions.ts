@@ -34,6 +34,7 @@ export async function signinUser(formdata: FormData) {
     }
 
     const role = userData.role;
+    
     switch (role) {
         case Role.ADMIN:
             redirect(paths.portals.admin.dashboard);
@@ -44,4 +45,6 @@ export async function signinUser(formdata: FormData) {
         default:
             revalidatePath("/", "layout");
     }
+    
+    return { success: true, data: signinData };
 }
