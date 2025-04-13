@@ -5,6 +5,7 @@ import { Card, CardHeader, CardTitle, CardContent, CardDescription  } from '@/co
 import { Form, FormField, FormItem, FormLabel, FormMessage, FormControl } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useSignupHook } from '@/hooks/useSignup';
+import { paths } from '@/routes/paths';
 import Image from 'next/image'
 import React from 'react'
 
@@ -148,18 +149,18 @@ export default function SignupPage() {
                                     <Button className='w-[100px ] text-lg mr-4  text-white rounded rouded-sm' type="submit" disabled={isPending}>
                                         {isPending ? "Creating.." : "Create" }
                                     </Button>
-                                    <p className="text-center text-[12px] text-gray-500">
-                                        Already have an account?
-                                        <Button variant="link" className="underline text-md " onClick={() => window.location.href = "/login"}>
-                                            Sign in
-                                        </Button>
-                                    </p>
                                 </div>
                             </form>
                         </Form>
                         {error && <p className='text-red-500 text-center mt-2'>{error}</p>}
                         {success && <p className='text-green-500 text-center mt-2'>{success}</p>}
                         </CardContent>
+                        <p className="text-center text-[12px] text-gray-500">
+                            Already have an account?
+                            <Button variant="link" className="underline text-md " onClick={() => window.location.href = paths.signin}>
+                                Sign in
+                            </Button>
+                        </p>
                     </Card>
                 </div>
             </div>
