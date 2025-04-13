@@ -13,9 +13,11 @@ import {
 } from "@/components/ui/table";
 import { Pagination } from "@/components/pagination";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { AddRoom } from "./add-room";
 
 export default function Room() {
-  const { errors, roomList } = useRoom(); 
+  const { errors, roomList } = useRoom();
 
   const rowsPerPage = 15;
   const [currentPage, setCurrentPage] = useState(1);
@@ -23,11 +25,11 @@ export default function Room() {
   const indexOfLastRow = currentPage * rowsPerPage;
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
   const currentRows = roomList?.slice(indexOfFirstRow, indexOfLastRow) ?? [];
-
   return (
     <div className="space-y-4">
-      <div className="flex space-x-2">
-        <div className="relative w-full">Room Management</div>
+      <div className="flex justify-between items-center">
+        <div>Room Management</div>
+        <AddRoom />
       </div>
       {errors.room && (
         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
@@ -39,11 +41,13 @@ export default function Room() {
           <TableCaption className="py-6">A list of Rooms.</TableCaption>
           <TableHeader>
             <TableRow>
-              <TableHead className="font-black">Room Number</TableHead>
+              <TableHead className="font-black text-center">
+                Room Number
+              </TableHead>
               <TableHead className="font-black">Type</TableHead>
-              <TableHead className="font-black">Rate</TableHead>
+              <TableHead className="font-black text-center">Pax</TableHead>
+              <TableHead className="font-black text-end">Rate</TableHead>
               <TableHead className="font-black">Status</TableHead>
-              <TableHead className="font-black">Pax</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -66,16 +70,20 @@ export default function Room() {
 
               return (
                 <TableRow key={index}>
-                  <TableCell className="font-medium">{room.room}</TableCell>
+                  <TableCell className="font-medium text-center">
+                    {room.room}
+                  </TableCell>
                   <TableCell className="font-medium">{room.type}</TableCell>
-                  <TableCell className="font-medium">
+                  <TableCell className="font-medium text-center">
+                    {room.pax}
+                  </TableCell>
+                  <TableCell className="font-medium text-end">
                     ₱ {room.price}.00
                   </TableCell>
-                  <TableCell className="font-bold">
+                  <TableCell className="font-bold text-center">
                     <Badge className={statusColor}>{room.status}</Badge>
                     {/* <span className={statusColor}>{room.status}</span> */}
                   </TableCell>
-                  <TableCell className="font-medium">{room.pax}</TableCell>
                 </TableRow>
               );
             })}
