@@ -1,3 +1,4 @@
+import { PasswordRule } from "@/types/password.types";
 import { z } from "zod";
 
 export const passwordValidation = new RegExp(
@@ -66,6 +67,32 @@ export const passwordValidationSchema = z
   .regex(mustIncludeNumberValidation, {
     message: "Password must contain at least one number",
   })
+  .regex(mustIncludeSpecialCharacterValidation, {
+    message: "Password must contain at least one special character",
+  })
+
+export const getPasswordRules = (password: string): PasswordRule[] => [
+    {
+      label: "Password must be at least 8 characters long.",
+      isValid: password.length >= 8,
+    },
+    {
+      label: "Password must contain at least one uppercase letter.",
+      isValid: mustIncludeUppercaseValidation.test(password),
+    },
+    {
+      label: "Password must contain at least one lower letter.",
+      isValid: mustIncludeLowercaseValidation.test(password),
+    },
+    {
+      label: "Password must contain at least one number.",
+      isValid: mustIncludeNumberValidation.test(password),
+    },
+    {
+      label: "Password must contain at least one special character.",
+      isValid: mustIncludeSpecialCharacterValidation.test(password),
+    },
+  ];
 
 export const hanldeSpaceValidation = (e: React.KeyboardEvent<HTMLInputElement>) => {
   const inputValue = e.currentTarget.value;
