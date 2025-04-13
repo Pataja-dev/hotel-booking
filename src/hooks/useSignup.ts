@@ -58,6 +58,7 @@ export function useSignupHook(){
                     setError(null);
                 } else {
                     setError(result.error || "Failed to create an account.");
+                    console.log("ERROR",result.error);
                 }
               } catch {
                 setError("An error occurred during signup.");
