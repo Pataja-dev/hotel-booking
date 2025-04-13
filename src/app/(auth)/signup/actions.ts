@@ -29,5 +29,5 @@ export async function signupUser(formdata: FormData) {
     return { success: false, error: signupError.message };
   }
 
-  redirect(paths.home)
+  redirect(paths.index)
 }
