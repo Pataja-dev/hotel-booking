@@ -16,7 +16,7 @@ export async function signinUser(formdata: FormData) {
         return { success: false, error: signinError.message };
     }
     const user = signinData.user;
-    console.log("User", user);
+
     if(!user) {
         return { success: false, error: "User not found" };
     }
@@ -25,8 +25,6 @@ export async function signinUser(formdata: FormData) {
         .select("role")
         .eq("id", user.id)
         .single();
-    console.log("User Data", userData);
-    console.log("User Error", userError);
 
     if (userError) {
         return { success: false, error: userError.message };
@@ -36,7 +34,6 @@ export async function signinUser(formdata: FormData) {
     }
 
     const role = userData.role;
-    console.log("User Role", role);
     switch (role) {
         case Role.ADMIN:
             redirect(paths.portals.admin.dashboard);
