@@ -131,9 +131,39 @@ export function useRoom() {
     fetchTypes();
   }, []);
 
+  const fetchAvailableRooms = async () => {
+    const supabase = supabaseBrowser();
+
+    const { data, error } = await supabase
+      .from("room_details")
+      .select("room, type, price, status, pax")
+      .eq("status", "available")
+      .order("room", { ascending: true });
+
+    if (error) {
+      setErrors((prev) => ({
+        ...prev,
+        room: "Error fetching available rooms. Please try again later.",
+      }));
+      return;
+    }
+
+    const transformedAvailableRooms: RoomsProps[] = data.map((room) => ({
+      room: room.room,
+      type: room.type,
+      price: room.price,
+      status: room.status.toUpperCase(),
+      pax: room.pax,
+    }));
+
+    setAvailableRooms(transformedAvailableRooms);
+  };
+
   return {
     setRoomList,
+    setAvailableRooms,
     roomList,
+    fetchAvailableRooms,
     setTypeList,
     typeList,
     errors,

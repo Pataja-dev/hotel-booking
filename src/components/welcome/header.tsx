@@ -1,4 +1,5 @@
 "use client";
+import { paths } from "@/routes/paths";
 import { ArrowRight } from "lucide-react";
 
 export function Header() {
@@ -41,10 +42,10 @@ export function Header() {
             <button className="bg-white text-gray-800 px-4 py-2 rounded-md hover:bg-gray-100">
               Sign Up
             </button> */}
-          <button className="bg-transparent border-2 border-white text-white px-8 py-3 rounded-md hover:bg-white hover:text-gray-800 transition flex items-center mx-auto">
+          <a href={paths.signin} className="bg-transparent border-2 border-white text-white px-8 py-3 rounded-md hover:bg-white hover:text-gray-800 transition flex items-center mx-auto">
             Book Now
             <ArrowRight size={20} className="ml-2" />
-          </button>
+          </a>
         </div>
       </header>
     </>

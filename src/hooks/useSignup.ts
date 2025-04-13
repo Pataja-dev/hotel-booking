@@ -14,8 +14,13 @@ const signupSchema = z.object({
     phone: phoneValidation,
     email: emailValidation,
     password: passwordValidationSchema,
-    confirmPassword: passwordValidationSchema,
+    confirmPassword: z.string().min(8, { message: "Confirm Password is required" }),
 })
+.refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
+});
+
 export type SignupFormValue = z.infer<typeof signupSchema>;
 
 export function useSignupHook(){
@@ -61,5 +66,11 @@ export function useSignupHook(){
 
     }
 
-    return { form, onSubmit, isPending, error, success };
+    return {
+        form,
+        onSubmit,
+        isPending,
+        error,
+        success
+    };
 }
