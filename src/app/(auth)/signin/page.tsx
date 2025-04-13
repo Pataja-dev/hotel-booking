@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { useSigninHook } from '@/hooks/useSignin'
+import { paths } from '@/routes/paths';
 import { Facebook } from 'lucide-react'
 import React from 'react'
 
@@ -76,7 +77,7 @@ const SigninPage = () => {
           </Form>
           </CardContent>
           <CardFooter>
-            <p className="text-center text-sm text-gray-500">Don`t have an account? <a href="/signup" className="text-blue-600 hover:underline">Sign Up</a></p>
+            <p className="text-center text-sm text-gray-500">Don`t have an account? <a href={paths.signup} className="text-blue-600 hover:underline">Sign Up</a></p>
             {/* <p className="text-center text-sm text-gray-500">Forgot your password? <a href="/forgot-password" className="text-blue-600 hover:underline">Reset Password</a></p> */}
           </CardFooter>
         </Card>
