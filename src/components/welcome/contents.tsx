@@ -1,6 +1,5 @@
 import { Header } from "@/components/welcome/header";
 import Welcome from "@/components/welcome/welcome";
-import Image from "next/image";
 import Background from "./background";
 
 export default function Content() {
