@@ -1,13 +1,8 @@
 import { useEffect, useState } from "react";
 import supabaseBrowser from "@/lib/supabase/client";
+import { RoomsProps } from "@/types/room.types";
 
-export interface RoomsProps {
-  room: number;
-  type: string;
-  price: string;
-  status: string;
-  pax: string;
-}
+
 
 export function useRoom() {
     //TO-DO
@@ -29,8 +24,8 @@ export function useRoom() {
 
             const { data, error } = await supabase
                 .from("room_details")
-                .select("room, type, price, status, pax");
-            console.log(data);
+                .select("room, type, price, status, pax")
+                .order("room", { ascending: true });
 
             if (error) {
                 setErrors((prev) => ({
@@ -41,11 +36,11 @@ export function useRoom() {
             }
             const transformedData: RoomsProps[] = data.map((room) => {
                 return {
-                    room: room.room,
-                    type: room.type,
-                    price: room.price,
-                    status: room.status,
-                    pax: room.pax,
+                  room: room.room,
+                  type: room.type,
+                  price: room.price,
+                  status: room.status.toUpperCase(),
+                  pax: room.pax,
                 };
             });
                 
