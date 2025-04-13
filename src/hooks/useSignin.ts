@@ -37,7 +37,6 @@ export function useSigninHook() {
         if (result.success) {
           setSuccess("Signin successful! Please check your email for verification.");
           setError(null);
-          console.log(result.data);
         } else {
           setError(result.error || "Failed to sign in.");
         }
