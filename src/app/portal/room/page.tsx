@@ -14,9 +14,10 @@ import {
 import { Pagination } from "@/components/pagination";
 import { Badge } from "@/components/ui/badge";
 import { RoomStatus } from "@/types/room.types";
+import { ActionDialogs } from "./action-dialogs";
 
 export default function Room() {
-  const { errors, roomList } = useRoom(); 
+  const { errors, roomList } = useRoom();
 
   const rowsPerPage = 15;
   const [currentPage, setCurrentPage] = useState(1);
@@ -52,13 +53,17 @@ export default function Room() {
               let statusColor = "text-gray-500";
 
               if (room.status === RoomStatus.AVAILABLE) {
-                statusColor = "bg-green-500 hover:bg-green-700 text-white font-bold";
+                statusColor =
+                  "bg-green-500 hover:bg-green-700 text-white font-bold";
               } else if (room.status === RoomStatus.OCCUPIED) {
-                statusColor = "bg-red-500 hover:bg-red-700 text-white font-bold";
+                statusColor =
+                  "bg-red-500 hover:bg-red-700 text-white font-bold";
               } else if (room.status === RoomStatus.RESERVED) {
-                statusColor = "bg-yellow-500 hover:bg-yellow-700 text-white font-bold";
+                statusColor =
+                  "bg-yellow-500 hover:bg-yellow-700 text-white font-bold";
               } else if (room.status === RoomStatus.MAINTENANCE) {
-                statusColor = "bg-gray-500 hover:bg-gray-700 text-white font-bold";
+                statusColor =
+                  "bg-gray-500 hover:bg-gray-700 text-white font-bold";
               }
 
               return (
@@ -73,6 +78,9 @@ export default function Room() {
                     {/* <span className={statusColor}>{room.status}</span> */}
                   </TableCell>
                   <TableCell className="font-medium">{room.pax}</TableCell>
+                  <TableCell className="font-medium">
+                    <ActionDialogs roomNumber={room.room}></ActionDialogs>
+                  </TableCell>
                 </TableRow>
               );
             })}
