@@ -13,9 +13,6 @@ export async function createRoom(formData: FormData) {
       status: "maintenance",
     });
 
-  console.log("Room Data", roomData);
-  console.log("Room Error", roomError);
-
   if (!roomError) {
     return {
       success: true,

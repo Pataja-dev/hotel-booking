@@ -16,6 +16,7 @@ const createRoomSchema = z.object({
 export type CreateRoomFormValue = z.infer<typeof createRoomSchema>;
 
 export function useRoom() {
+  const [availableRooms, setAvailableRooms] = useState<RoomsProps[]>([]);
   const [isPending, startTransition] = useTransition();
   const [success, setSuccess] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -29,8 +30,6 @@ export function useRoom() {
   });
 
   const onCreateRoom = (data: CreateRoomFormValue) => {
-    console.log(data);
-
     const formData = new FormData();
     formData.append("roomNumber", data.roomNumber);
     formData.append("roomType", data.roomType);
@@ -40,8 +39,6 @@ export function useRoom() {
         await new Promise((resolve) => setTimeout(resolve, 300));
 
         const result = await createRoom(formData);
-
-        console.log(result);
 
         if (result?.success) {
           setSuccess("Room created.");
@@ -58,14 +55,6 @@ export function useRoom() {
     });
   };
 
-  //TO-DO
-  // const [roomData, setRoomData] = useState({
-  //     room: "",
-  //     type: "",
-  //     price: "",
-  //     status: "",
-  //     pax: "",
-  // });
   const [roomList, setRoomList] = useState<RoomsProps[]>([]);
   const [typeList, setTypeList] = useState<TypeProps[]>([]);
   const [errors, setErrors] = useState({
@@ -172,5 +161,6 @@ export function useRoom() {
     isPending,
     success,
     error,
+    availableRooms,
   };
 }
