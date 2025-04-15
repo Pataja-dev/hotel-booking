@@ -11,3 +11,11 @@ export interface RoomsProps {
   status: RoomStatus;
   pax: string;
 }
+
+export interface TypeProps {
+  id: number;
+  type: string;
+  description: string;
+  pax: string;
+  price: string;
+}

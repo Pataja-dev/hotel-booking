@@ -14,6 +14,7 @@ import {
 import { Pagination } from "@/components/pagination";
 import { Badge } from "@/components/ui/badge";
 import { RoomStatus } from "@/types/room.types";
+import { AddRoom } from "./add-room";
 import { Input } from "@/components/ui/input";
 import {
   DropdownMenu,
@@ -32,11 +33,14 @@ export default function Room() {
   const indexOfLastRow = currentPage * rowsPerPage;
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
   const currentRows = roomList?.slice(indexOfFirstRow, indexOfLastRow) ?? [];
-
   return (
     <div className="space-y-4">
-      <div className="flex space-x-2">
-        <div className="relative w-full">Room Management</div>
+      <div className="flex justify-between items-center">
+        <div>Room Management</div>
+        <AddRoom />
+      </div>
+      <div className="text-end">
+        <Input onChange={(e) => filterRooms(e.target.value)}></Input>
       </div>
       <div className="text-end">
         <Input onChange={(e) => filterRooms(e.target.value)}></Input>
@@ -113,29 +117,41 @@ export default function Room() {
               if (room.status === RoomStatus.AVAILABLE) {
                 statusColor =
                   "bg-green-500 hover:bg-green-700 text-white font-bold";
+                statusColor =
+                  "bg-green-500 hover:bg-green-700 text-white font-bold";
               } else if (room.status === RoomStatus.OCCUPIED) {
+                statusColor =
+                  "bg-red-500 hover:bg-red-700 text-white font-bold";
                 statusColor =
                   "bg-red-500 hover:bg-red-700 text-white font-bold";
               } else if (room.status === RoomStatus.RESERVED) {
                 statusColor =
                   "bg-yellow-500 hover:bg-yellow-700 text-white font-bold";
+                statusColor =
+                  "bg-yellow-500 hover:bg-yellow-700 text-white font-bold";
               } else if (room.status === RoomStatus.MAINTENANCE) {
+                statusColor =
+                  "bg-gray-500 hover:bg-gray-700 text-white font-bold";
                 statusColor =
                   "bg-gray-500 hover:bg-gray-700 text-white font-bold";
               }
 
               return (
                 <TableRow key={index}>
-                  <TableCell className="font-medium">{room.room}</TableCell>
+                  <TableCell className="font-medium text-center">
+                    {room.room}
+                  </TableCell>
                   <TableCell className="font-medium">{room.type}</TableCell>
-                  <TableCell className="font-medium">
+                  <TableCell className="font-medium text-center">
+                    {room.pax}
+                  </TableCell>
+                  <TableCell className="font-medium text-end">
                     ₱ {room.price}.00
                   </TableCell>
                   <TableCell className="font-bold">
                     <Badge className={statusColor}>{room.status}</Badge>
                     {/* <span className={statusColor}>{room.status}</span> */}
                   </TableCell>
-                  <TableCell className="font-medium">{room.pax}</TableCell>
                 </TableRow>
               );
             })}
