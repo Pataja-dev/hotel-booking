@@ -70,10 +70,6 @@ export function useRoom() {
         .from("room_details")
         .select("room, type, price, status, pax")
         .order("room", { ascending: true });
-      const { data, error } = await supabase
-        .from("room_details")
-        .select("room, type, price, status, pax")
-        .order("room", { ascending: true });
 
       if (error) {
         setErrors((prev) => ({
@@ -184,5 +180,11 @@ export function useRoom() {
     fetchAvailableRooms,
     errors,
     filterRooms,
+    onCreateRoom,
+    typeList,
+    isPending,
+    success,
+    error,
+    form,
   };
 }
