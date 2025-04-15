@@ -70,6 +70,10 @@ export function useRoom() {
         .from("room_details")
         .select("room, type, price, status, pax")
         .order("room", { ascending: true });
+      const { data, error } = await supabase
+        .from("room_details")
+        .select("room, type, price, status, pax")
+        .order("room", { ascending: true });
 
       if (error) {
         setErrors((prev) => ({
@@ -148,19 +152,37 @@ export function useRoom() {
     setAvailableRooms(transformedAvailableRooms);
   };
 
+  const filterRooms = async (searchFilter: string) => {
+    const supabase = supabaseBrowser();
+
+    const { data: filteredRoomsData, error } = await supabase
+      .from("room_details")
+      .select("*")
+      .or(`status.ilike.%${searchFilter}%, type.ilike.%${searchFilter}%`)
+      .order("room", { ascending: true });
+
+    if (filteredRoomsData) {
+      const transformedData: RoomsProps[] = filteredRoomsData.map((room) => {
+        return {
+          room: room.room,
+          type: room.type,
+          price: room.price,
+          status: room.status.toUpperCase(),
+          pax: room.pax,
+        };
+      });
+      setRoomList(transformedData);
+    } else {
+      console.log("Filter Error: ", error);
+    }
+  };
+
   return {
     setRoomList,
-    setAvailableRooms,
+    availableRooms,
     roomList,
     fetchAvailableRooms,
-    setTypeList,
-    typeList,
     errors,
-    form,
-    onCreateRoom,
-    isPending,
-    success,
-    error,
-    availableRooms,
+    filterRooms,
   };
 }

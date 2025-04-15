@@ -15,10 +15,18 @@ import { Pagination } from "@/components/pagination";
 import { Badge } from "@/components/ui/badge";
 import { RoomStatus } from "@/types/room.types";
 import { AddRoom } from "./add-room";
+import { Input } from "@/components/ui/input";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { ChevronDown } from "lucide-react";
 import { ActionDialogs } from "./action-dialogs";
 
 export default function Room() {
-  const { errors, roomList } = useRoom();
+  const { errors, roomList, filterRooms } = useRoom();
 
   const rowsPerPage = 15;
   const [currentPage, setCurrentPage] = useState(1);
@@ -32,6 +40,12 @@ export default function Room() {
         <div>Room Management</div>
         <AddRoom />
       </div>
+      <div className="text-end">
+        <Input onChange={(e) => filterRooms(e.target.value)}></Input>
+      </div>
+      <div className="text-end">
+        <Input onChange={(e) => filterRooms(e.target.value)}></Input>
+      </div>
       {errors.room && (
         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
           {errors.room}
@@ -42,13 +56,59 @@ export default function Room() {
           <TableCaption className="py-6">A list of Rooms.</TableCaption>
           <TableHeader>
             <TableRow>
-              <TableHead className="font-black text-center">
-                Room Number
+              <TableHead className="font-black">Room Number</TableHead>
+              <TableHead className="font-black">
+                <DropdownMenu>
+                  <DropdownMenuTrigger className="flex gap-1 cursor-pointer hover:underline">
+                    <span>Type</span> <ChevronDown></ChevronDown>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <DropdownMenuItem onSelect={() => filterRooms("")}>
+                      All
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => filterRooms("Standard")}>
+                      Standard
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => filterRooms("Barkada")}>
+                      Barkada
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => filterRooms("Family")}>
+                      Family
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => filterRooms("Executive")}>
+                      Executive
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </TableHead>
-              <TableHead className="font-black">Type</TableHead>
-              <TableHead className="font-black text-center">Pax</TableHead>
-              <TableHead className="font-black text-end">Rate</TableHead>
-              <TableHead className="font-black">Status</TableHead>
+              <TableHead className="font-black">Rate</TableHead>
+              <TableHead className="font-black">
+                <DropdownMenu>
+                  <DropdownMenuTrigger className="flex gap-1 cursor-pointer hover:underline">
+                    <span>Status</span> <ChevronDown></ChevronDown>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <DropdownMenuItem onSelect={() => filterRooms("")}>
+                      All
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => filterRooms("Available")}>
+                      Available
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => filterRooms("Occupied")}>
+                      Occupied
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => filterRooms("Reserved")}>
+                      Reserved
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      onSelect={() => filterRooms("Maintenance")}
+                    >
+                      Maintenance
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </TableHead>
+              <TableHead className="font-black">Pax</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -58,13 +118,21 @@ export default function Room() {
               if (room.status === RoomStatus.AVAILABLE) {
                 statusColor =
                   "bg-green-500 hover:bg-green-700 text-white font-bold";
+                statusColor =
+                  "bg-green-500 hover:bg-green-700 text-white font-bold";
               } else if (room.status === RoomStatus.OCCUPIED) {
+                statusColor =
+                  "bg-red-500 hover:bg-red-700 text-white font-bold";
                 statusColor =
                   "bg-red-500 hover:bg-red-700 text-white font-bold";
               } else if (room.status === RoomStatus.RESERVED) {
                 statusColor =
                   "bg-yellow-500 hover:bg-yellow-700 text-white font-bold";
+                statusColor =
+                  "bg-yellow-500 hover:bg-yellow-700 text-white font-bold";
               } else if (room.status === RoomStatus.MAINTENANCE) {
+                statusColor =
+                  "bg-gray-500 hover:bg-gray-700 text-white font-bold";
                 statusColor =
                   "bg-gray-500 hover:bg-gray-700 text-white font-bold";
               }
