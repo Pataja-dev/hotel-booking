@@ -6,7 +6,7 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createRoom } from "@/app/portal/room/actions";
-import { toast } from "sonner";
+// import { toast } from "sonner";
 
 const createRoomSchema = z.object({
   roomNumber: z.string().min(1, { message: "Must be greater than 1" }),
@@ -43,14 +43,14 @@ export function useRoom() {
         if (result?.success) {
           setSuccess("Room created.");
           setError(null);
-          toast.success("Room created.");
+          // toast.success("Room created.");
         } else {
           setError("Failed to create a room.");
-          toast.error(result?.error || "Failed to create a room.");
+          // toast.error(result?.error || "Failed to create a room.");
         }
       } catch {
         setError("An error occured while creating room.");
-        toast.error("An error occured while creating room.");
+        // toast.error("An error occured while creating room.");
       }
     });
   };
