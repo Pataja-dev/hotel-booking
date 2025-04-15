@@ -23,6 +23,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ChevronDown } from "lucide-react";
+import { ActionDialogs } from "./action-dialogs";
 
 export default function Room() {
   const { errors, roomList, filterRooms } = useRoom();
@@ -151,6 +152,9 @@ export default function Room() {
                   <TableCell className="font-bold">
                     <Badge className={statusColor}>{room.status}</Badge>
                     {/* <span className={statusColor}>{room.status}</span> */}
+                  </TableCell>
+                  <TableCell className="font-medium">
+                    <ActionDialogs roomNumber={room.room}></ActionDialogs>
                   </TableCell>
                 </TableRow>
               );
