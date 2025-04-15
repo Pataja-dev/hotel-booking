@@ -15,6 +15,7 @@ import { Pagination } from "@/components/pagination";
 import { Badge } from "@/components/ui/badge";
 import { RoomStatus } from "@/types/room.types";
 import { AddRoom } from "./add-room";
+import { ActionDialogs } from "./action-dialogs";
 
 export default function Room() {
   const { errors, roomList } = useRoom();
@@ -83,6 +84,9 @@ export default function Room() {
                   <TableCell className="font-bold">
                     <Badge className={statusColor}>{room.status}</Badge>
                     {/* <span className={statusColor}>{room.status}</span> */}
+                  </TableCell>
+                  <TableCell className="font-medium">
+                    <ActionDialogs roomNumber={room.room}></ActionDialogs>
                   </TableCell>
                 </TableRow>
               );
