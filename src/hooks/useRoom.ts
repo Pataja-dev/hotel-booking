@@ -43,14 +43,14 @@ export function useRoom() {
         if (result?.success) {
           setSuccess("Room created.");
           setError(null);
-          toast.success("Room created.");
+          // toast.success("Room created.");
         } else {
           setError("Failed to create a room.");
-          toast.error(result?.error || "Failed to create a room.");
+          // toast.error(result?.error || "Failed to create a room.");
         }
       } catch {
         setError("An error occured while creating room.");
-        toast.error("An error occured while creating room.");
+        // toast.error("An error occured while creating room.");
       }
     });
   };
